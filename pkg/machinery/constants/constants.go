@@ -14,7 +14,7 @@ import (
 
 const (
 	// DefaultKernelVersion is the default Linux kernel version.
-	DefaultKernelVersion = "6.6.43-talos"
+	DefaultKernelVersion = "6.6.44-talos"
 
 	// KernelModulesPath is the default path to the kernel modules without the kernel version.
 	KernelModulesPath = "/lib/modules"
@@ -342,7 +342,7 @@ const (
 
 	// DefaultKubernetesVersion is the default target version of the control plane.
 	// renovate: datasource=github-releases depName=kubernetes/kubernetes
-	DefaultKubernetesVersion = "1.31.0-beta.0"
+	DefaultKubernetesVersion = "1.31.0-rc.1"
 
 	// SupportedKubernetesVersions is the number of Kubernetes versions supported by Talos starting from DefaultKubernesVersion going backwards.
 	SupportedKubernetesVersions = 6
@@ -768,8 +768,14 @@ const (
 	// AnnotationOwnedLabels is the annotation key for the list of node labels owned by Talos.
 	AnnotationOwnedLabels = "talos.dev/owned-labels"
 
+	// AnnotationOwnedAnnotations is the annotation key for the list of node annotations owned by Talos.
+	AnnotationOwnedAnnotations = "talos.dev/owned-annotations"
+
 	// AnnotationOwnedTaints is the annotation key for the list of node taints owned by Talos.
 	AnnotationOwnedTaints = "talos.dev/owned-taints"
+
+	// K8sExtensionPrefix is the prefix for node labels/annotations listing extensions.
+	K8sExtensionPrefix = "extensions.talos.dev/"
 
 	// DefaultNTPServer is the NTP server to use if not configured explicitly.
 	DefaultNTPServer = "time.cloudflare.com"
@@ -896,7 +902,7 @@ const (
 	DBusClientSocketPath = "/run/dbus/system_bus_socket"
 
 	// GoVersion is the version of Go compiler this release was built with.
-	GoVersion = "go1.22.5"
+	GoVersion = "go1.22.6"
 
 	// KubernetesTalosAPIServiceName is the name of the Kubernetes service to access Talos API.
 	KubernetesTalosAPIServiceName = "talos"

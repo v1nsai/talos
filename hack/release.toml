@@ -17,8 +17,8 @@ preface = """\
     [notes.updates]
         title = "Component Updates"
         description = """\
-Kubernetes: 1.31.0-beta0
-Linux: 6.6.43
+Kubernetes: 1.31.0-rc.1
+Linux: 6.6.44
 containerd: 2.0.0-rc.3
 runc: 1.2.0-rc.2
 etcd: 3.5.15
@@ -26,7 +26,7 @@ Flannel: 0.25.5
 Flannel CNI plugin: 1.5.1
 CoreDNS: 1.1.13
 
-Talos is built with Go 1.22.5.
+Talos is built with Go 1.22.6.
 """
 
     [notes.apparmor]
@@ -108,6 +108,54 @@ Talos Linux on config generation now adds a label `node.kubernetes.io/exclude-fr
         title = "Secure Boot"
         description = """\
 Talos Linux now can optionally include well-known UEFI (Microsoft) SecureBoot keys into the auto-enrollment UEFI database.
+"""
+
+    [notes.annotations]
+        title = "Node Annotations"
+        description = """\
+Talos Linux now supports configuring Kubernetes node annotations via machine configuration (`.machine.nodeAnnotations`) in a way similar to node labels.
+"""
+
+    [notes.extensions]
+        title = "Extensions in Kubernetes Nodes"
+        description = """\
+Talos Linux now publishes list of installed extensions as Kubernetes node labels/annotations.
+
+The key format is `extensions.talos.dev/<name>` and the value is the extension version.
+If the extension name is not valid as a label key, it will be skipped.
+If the extension version is a valid label value, it will be put to the label; otherwise it will be put to the annotation.
+
+For Talos machines booted of the Image Factory artifacts, this means that the schematic ID will be published as the annotation
+`extensions.talos.dev/schematic` (as it is longer than 63 characters).
+"""
+
+    [notes.nvidia]
+        title = "NVIDIA GPU Support"
+        description = """\
+Starting with Talos 1.8.0, SideroLabs would ships extensions for both LTS and Production versions of NVIDIA extensions.
+For more details see the CHANGELOG of [extensions](https://github.com/siderolabs/extensions/releases).
+
+Upgrades with an exisiting schematic id from Image Factory would keep the existing LTS version of the NVIDIA extension.
+"""
+
+    [notes.kubelet]
+        title = "Slim Kubelet Image"
+        description = """\
+Kubelet container image includes various utilities that kubelet might use to perform various tasks.
+
+Starting with Kubernetes 1.31.0, `kubelet` image now includes less utilities, as the in-tree CSI plugins were
+removed in Kubernetes 1.31.0. This reduces `kubelet` image size and potential attack surface.
+
+ For Kubernetes < 1.31.0, there will be two images built:
+
+* `v1.x.y` (default, fat)
+* `v1.x.y-slim` (slim)
+
+For Kubernetes >= 1.31.0, there will be same two images built, but the
+default tag would point to slim image:
+
+* `v1.x.y` (default, slim)
+* `v1.x.y-fat` (fat)
 """
 
 [make_deps]
